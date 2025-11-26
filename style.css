@@ -23,28 +23,23 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   line-height: 1.6;
-  background: var(--bg);
+  background: #050614;
   position: relative;
   min-height: 100vh;
 }
 
-/* ======== FOND ANIMÉ CYBERPUNK ======== */
-body::before,
-body::after {
+/* ======== FOND CYBERPUNK VISIBLE ======== */
+body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-}
-
-/* gros néons visibles + grille animée */
-body::before {
   background:
-    radial-gradient(circle at 10% 0%, rgba(255, 47, 212, 0.4), transparent 60%),
-    radial-gradient(circle at 90% 100%, rgba(0, 240, 255, 0.4), transparent 60%),
-    radial-gradient(circle at 50% 120%, rgba(245, 211, 0, 0.4), transparent 60%),
-    linear-gradient(120deg, rgba(0, 240, 255, 0.35) 1px, transparent 1px),
+    radial-gradient(circle at 10% 0%, rgba(255, 47, 212, 0.5), transparent 60%),
+    radial-gradient(circle at 90% 100%, rgba(0, 240, 255, 0.5), transparent 60%),
+    radial-gradient(circle at 50% 120%, rgba(245, 211, 0, 0.5), transparent 60%),
+    linear-gradient(120deg, rgba(0, 240, 255, 0.3) 1px, transparent 1px),
     linear-gradient(-120deg, rgba(255, 47, 212, 0.25) 1px, transparent 1px);
   background-size:
     cover,
@@ -52,12 +47,16 @@ body::before {
     cover,
     140px 140px,
     140px 140px;
-  opacity: 0.6;
+  opacity: 0.7;
   animation: cyberGrid 30s linear infinite;
 }
 
-/* scanlines légèrement visibles */
 body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
   background-image: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.5) 1px,
@@ -69,12 +68,8 @@ body::after {
 }
 
 @keyframes cyberGrid {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-140px, -140px, 0);
-  }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-140px, -140px, 0); }
 }
 
 @keyframes scanlines {
@@ -82,16 +77,16 @@ body::after {
   to   { transform: translateY(3px); }
 }
 
-/* ======== HEADER ======== */
+/* ======== HEADER (PC STABLE) ======== */
 .site-header {
   padding: 10px 7vw;
   background: linear-gradient(to right, rgba(5, 8, 24, 0.97), rgba(5, 8, 24, 0.88));
   border-bottom: 1px solid rgba(245, 211, 0, 0.2);
   backdrop-filter: blur(10px);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  column-gap: 22px;
+  justify-content: space-between;
+  gap: 24px;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -108,8 +103,9 @@ body::after {
   display: block;
 }
 
-/* bloc centre : titre */
+/* bloc centre : titre centré visuellement */
 .header-center {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,13 +147,10 @@ body::after {
   background: rgba(5, 12, 40, 0.9);
 }
 
-/* TOGGLE MENU (MOBILE) */
-.nav-toggle {
-  display: none;
-}
-
+/* on désactive visuellement le toggle (on garde le HTML mais on ne l’utilise pas) */
+.nav-toggle,
 .nav-toggle-label {
-  display: none; /* on l’affiche seulement en mobile */
+  display: none;
 }
 
 /* ======== LAYOUT GLOBAL ======== */
@@ -165,15 +158,19 @@ main {
   padding: 40px 7vw 80px;
 }
 
-/* conteneur central : évite “collé à gauche” */
-.layout-with-sidebar,
-.section {
+/* conteneur principal : centré, pas collé à gauche */
+.layout-with-sidebar {
   max-width: 1200px;
   margin: 0 auto;
+  display: grid; /* IMPORTANT : grid tout le temps pour avoir la sidebar à droite */
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
+  gap: 28px;
+  align-items: flex-start;
 }
 
 .section {
-  margin-top: 60px;
+  max-width: 1200px;
+  margin: 60px auto 0;
   text-align: center;
 }
 
@@ -329,18 +326,12 @@ main {
   color: var(--accent);
 }
 
-/* ======== LAYOUT : CONTENU + SIDEBAR ======== */
-.layout-with-sidebar {
-  margin-top: 10px;
-}
-
+/* ======== SIDEBAR PUB ======== */
 .content-column {
   width: 100%;
 }
 
-/* sidebar pub */
 .ad-sidebar {
-  margin-top: 30px;
   background: rgba(5, 7, 28, 0.96);
   border: 1px solid rgba(0, 240, 255, 0.35);
   border-radius: var(--radius-lg);
@@ -457,28 +448,11 @@ main {
 
 /* ======== RESPONSIVE ======== */
 
-/* Desktop : sidebar à droite dès 768px */
-@media (min-width: 768px) {
-  .layout-with-sidebar {
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
-    gap: 28px;
-    align-items: flex-start;
-  }
-
-  .ad-sidebar {
-    position: sticky;
-    top: 90px;
-  }
-}
-
-/* Tablette / mobile */
+/* Tablette / mobile : on passe tout en colonne, sidebar en bas */
 @media (max-width: 900px) {
   .site-header {
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    row-gap: 6px;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
 
   .header-center {
@@ -486,73 +460,13 @@ main {
     text-align: left;
   }
 
-  /* bouton burger visible en mobile */
-  .nav-toggle-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-self: end;
-    width: 38px;
-    height: 32px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    position: relative;
-  }
-
-  .nav-toggle-label span,
-  .nav-toggle-label span::before,
-  .nav-toggle-label span::after {
-    content: "";
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 999px;
-    position: absolute;
-    transition: 0.18s ease-out;
-  }
-
-  .nav-toggle-label span::before {
-    transform: translateY(-5px);
-  }
-
-  .nav-toggle-label span::after {
-    transform: translateY(5px);
-  }
-
-  /* nav en panneau déroulant */
   .nav {
-    grid-column: 1 / -1;
-    margin-top: 4px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 7vw 10px;
-    background: rgba(5, 8, 24, 0.97);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    display: none; /* caché par défaut */
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
-  .nav a {
-    width: 100%;
-    padding: 8px 10px;
-  }
-
-  .nav-toggle:checked ~ .nav {
-    display: flex;
-  }
-
-  .nav-toggle:checked + .nav-toggle-label span {
-    background: transparent;
-  }
-
-  .nav-toggle:checked + .nav-toggle-label span::before {
-    transform: rotate(45deg);
-  }
-
-  .nav-toggle:checked + .nav-toggle-label span::after {
-    transform: rotate(-45deg);
+  .layout-with-sidebar {
+    grid-template-columns: 1fr;  /* sidebar passe sous le contenu */
   }
 
   .hero {
@@ -564,21 +478,25 @@ main {
   }
 
   .logo-image {
-    height: 48px;
+    height: 46px;
+  }
+
+  main {
+    padding: 28px 20px 60px;
   }
 }
 
 /* Petits téléphones */
 @media (max-width: 600px) {
-  main {
-    padding: 24px 16px 40px;
-  }
-
   .hero-text h1 {
     font-size: 2rem;
   }
 
   .logo-image {
-    height: 42px;
+    height: 40px;
+  }
+
+  main {
+    padding: 24px 16px 50px;
   }
 }
