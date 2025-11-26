@@ -7,7 +7,7 @@ const PLAYLIST_ID = "PLTyMOPElORjYiQVwjMeU51xS4PKb455VM";
 
 // Ta clé API YouTube
 // ⚠️ Mets ici la même clé API que tu utilises déjà et qui fonctionne
-const API_KEY = "VOTRE_CLE_API_ICI";
+const API_KEY = "AIzaSyD-qNMO9FIvEpjPdG6BV7uxrgzdA4YbA2s";
 
 // Nombre max d’éléments par page (max = 50)
 const MAX_RESULTS = 50;
