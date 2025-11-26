@@ -14,12 +14,6 @@
   <meta property="og:image" content="https://madageek.github.io/Madagameovergroove/logo-mada-game-over.png">
   <meta property="og:url" content="https://madageek.github.io/Madagameovergroove/">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mada Game Over Groove — Musiques Geek & Gaming">
-  <meta name="twitter:description" content="Musiques inspirées des jeux vidéo, mangas, films et univers fantastiques.">
-  <meta name="twitter:image" content="https://madageek.github.io/Madagameovergroove/logo-mada-game-over.png">
-
   <!-- Données structurées : artiste / projet musical -->
   <script type="application/ld+json">
   {
@@ -41,7 +35,7 @@
 
 <body>
 
-    <!-- HEADER -->
+  <!-- HEADER -->
   <header class="site-header">
     <div class="header-left">
       <img src="logo-mada-game-over.png" alt="Logo Mada Game Over Groove" class="logo-image">
@@ -52,12 +46,6 @@
       <span class="logo-sub">Univers Musical Geek &amp; Gaming</span>
     </div>
 
-    <!-- Toggle menu mobile -->
-    <input type="checkbox" id="nav-toggle" class="nav-toggle">
-    <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
-      <span></span>
-    </label>
-
     <nav class="nav">
       <a href="#hero">Accueil</a>
       <a href="#latest">Dernières vidéos</a>
@@ -67,7 +55,12 @@
     </nav>
   </header>
 
-      <!-- COLONNE CONTENU PRINCIPAL -->
+  <main>
+
+    <!-- LAYOUT PRINCIPAL : CONTENU + SIDEBAR PUB -->
+    <div class="layout-with-sidebar">
+
+      <!-- COLONNE CONTENU -->
       <div class="content-column">
 
         <!-- HERO SECTION -->
@@ -96,27 +89,26 @@
           </div>
         </section>
 
-        <!-- 🔥 DERNIÈRES VIDÉOS (playlist fournie) -->
+        <!-- DERNIÈRES VIDÉOS -->
         <section id="latest" class="section">
           <div class="section-header">
             <h2>Dernières vidéos de la chaîne</h2>
             <p>Les ajouts récents de Mada Game Over Groove, directement depuis YouTube.</p>
           </div>
 
-          <div class="playlist-wrapper" style="max-width: 960px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid #252a4a;">
+          <div class="playlist-wrapper">
             <iframe
               src="https://www.youtube.com/embed/videoseries?list=PLTyMOPElORjYiQVwjMeU51xS4PKb455VM"
               title="Dernières vidéos Mada Game Over Groove"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
-              loading="lazy"
-              style="width: 100%; aspect-ratio: 16 / 9;">
+              loading="lazy">
             </iframe>
           </div>
         </section>
 
-         <!-- ABOUT / BIO -->
+        <!-- ABOUT / BIO -->
         <section id="about" class="section">
           <div class="section-header">
             <h2>Qui est Mada Game Over Groove&nbsp;?</h2>
@@ -132,7 +124,7 @@
               </p>
 
               <p>
-                Je compose en IA des musiques qui vont du chiptune rétro aux ambiances orchestrales épiques, en passant
+                Je compose des musiques qui vont du chiptune rétro aux ambiances orchestrales épiques, en passant
                 par l’électro sombre, le punk acerbe et les atmosphères cinématographiques. L’objectif : créer
                 des sons qui pourraient exister dans un jeu, un animé, un film ou dans la tête d’un joueur en pleine partie.
               </p>
@@ -185,7 +177,7 @@
               <div class="video-body">
                 <h3 class="video-title">Le Trône Abyssal de Davy Jones</h3>
                 <p class="video-meta">
-                  Cette chanson puise son inspiration dans la tragédie mythique de Davy Jones, figure tourmentée de Pirates des Caraïbes. Elle explore son cœur arraché, son amour perdu et la malédiction qui l’a condamnée aux abysses. L’océan devient un personnage vivant, reflet de sa rage, de sa solitude et de son pouvoir écrasant. L’atmosphère mêle tempêtes, cris des âmes damnées et créatures colossales comme le Kraken, sculptant une fresque sombre et épique. C’est l’histoire d’un capitaine déchu devenu légende, souverain impitoyable des mers et prisonnier éternel de sa peine.
+                  Cette chanson puise son inspiration dans la tragédie mythique de Davy Jones, figure tourmentée de Pirates des Caraïbes. Elle explore son cœur arraché, son amour perdu et la malédiction qui l’a condamné aux abysses. L’océan devient un personnage vivant, reflet de sa rage, de sa solitude et de son pouvoir écrasant. L’atmosphère mêle tempêtes, cris des âmes damnées et créatures colossales comme le Kraken, sculptant une fresque sombre et épique. C’est l’histoire d’un capitaine déchu devenu légende, souverain impitoyable des mers et prisonnier éternel de sa peine.
                 </p>
               </div>
             </article>
@@ -336,7 +328,7 @@
 
       </div>
 
-      <!-- COLONNE PUB / ASIDE -->
+      <!-- SIDEBAR PUB -->
       <aside class="ad-sidebar">
         <h2 class="ad-title">Soutenir le projet</h2>
         <p class="ad-text">Les annonces affichées ici aident à faire vivre Mada Game Over Groove et à produire plus de musiques geek &amp; gaming.</p>
@@ -355,6 +347,7 @@
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
       </aside>
+
     </div>
   </main>
 
@@ -370,9 +363,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
