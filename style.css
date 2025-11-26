@@ -5,9 +5,15 @@
   gap: 10px;
 }
 
+/* Logo du header */
 .logo-image {
-  height: 56px;
+  height: 60px;      /* taille du logo (tu peux monter à 70 si tu veux un peu plus gros) */
   width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
 }
 
 /* recentrer le bloc texte du header */
@@ -95,3 +101,4 @@
     top: 90px;
   }
 }
+
