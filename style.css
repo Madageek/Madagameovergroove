@@ -24,11 +24,69 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   line-height: 1.6;
+  background: #050614;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* FOND ANIMÉ CYBERPUNK (grille néon + scanlines) */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* grille diagonale animée */
+body::before {
   background:
     radial-gradient(circle at 10% 0%, rgba(255, 47, 212, 0.15), transparent 55%),
     radial-gradient(circle at 90% 100%, rgba(0, 240, 255, 0.18), transparent 55%),
     radial-gradient(circle at 50% 120%, rgba(245, 211, 0, 0.16), transparent 55%),
-    #050614;
+    linear-gradient(120deg, rgba(0, 240, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(-120deg, rgba(255, 47, 212, 0.08) 1px, transparent 1px);
+  background-size:
+    cover,
+    cover,
+    cover,
+    120px 120px,
+    120px 120px;
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  animation: cyberGrid 32s linear infinite;
+}
+
+/* légères scanlines */
+body::after {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35) 1px,
+    transparent 1px
+  );
+  background-size: 100% 3px;
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  animation: scanlines 6s linear infinite;
+}
+
+@keyframes cyberGrid {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-120px, -120px, 0);
+  }
+}
+
+@keyframes scanlines {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(3px);
+  }
 }
 
 /* ======== HEADER ======== */
@@ -82,7 +140,7 @@ body {
   color: var(--muted);
 }
 
-/* bloc droite : nav */
+/* NAVIGATION */
 .nav {
   display: flex;
   gap: 12px;
@@ -102,6 +160,15 @@ body {
   color: var(--accent-secondary);
   border-color: rgba(0, 240, 255, 0.25);
   background: rgba(5, 12, 40, 0.9);
+}
+
+/* TOGGLE MENU (MOBILE) */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none; /* caché sur desktop */
 }
 
 /* ======== LAYOUT GLOBAL ======== */
@@ -411,9 +478,9 @@ main {
 
 @media (max-width: 900px) {
   .site-header {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    row-gap: 8px;
+    row-gap: 6px;
   }
 
   .header-center {
@@ -421,11 +488,76 @@ main {
     text-align: left;
   }
 
+  /* menu burger visible */
+  .nav-toggle-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: end;
+    width: 38px;
+    height: 32px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    margin-left: auto;
+  }
+
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 999px;
+    position: absolute;
+    transition: 0.18s ease-out;
+  }
+
+  .nav-toggle-label span::before {
+    transform: translateY(-5px);
+  }
+
+  .nav-toggle-label span::after {
+    transform: translateY(5px);
+  }
+
+  /* nav en mode panel déroulant */
   .nav {
     grid-column: 1 / -1;
-    justify-content: flex-start;
-    flex-wrap: wrap;
     margin-top: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 6vw 10px;
+    background: rgba(5, 8, 24, 0.97);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    display: none;
+  }
+
+  .nav a {
+    width: 100%;
+    padding: 8px 10px;
+  }
+
+  /* quand le toggle est coché → afficher le menu */
+  .nav-toggle:checked ~ .nav {
+    display: flex;
+  }
+
+  /* animation croix sur le burger */
+  .nav-toggle:checked + .nav-toggle-label span {
+    background: transparent;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label span::before {
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle:checked + .nav-toggle-label span::after {
+    transform: rotate(-45deg);
   }
 
   .hero {
@@ -454,3 +586,5 @@ main {
     height: 42px;
   }
 }
+
+
