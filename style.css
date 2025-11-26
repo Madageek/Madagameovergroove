@@ -340,40 +340,35 @@ main {
 
 /* SIDEBAR PUB */
 .ad-sidebar {
-  flex: 0 0 300px;
+  flex: 0 0 260px;
   background: rgba(5, 7, 28, 0.96);
   border: 1px solid rgba(0, 240, 255, 0.35);
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 12px;
   box-shadow: var(--shadow);
 }
 
 .ad-title {
-  font-size: 1rem;
-  margin-bottom: 6px;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
 }
 
 .ad-text {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.support-mini {
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.support-mini-btn {
-  display: inline-block;
-  margin-top: 6px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 240, 255, 0.4);
-  text-decoration: none;
   font-size: 0.8rem;
-  color: var(--accent-secondary);
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ad-list {
+  list-style: none;
+  margin: 4px 0 8px;
+  padding-left: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.ad-list li {
+  margin-bottom: 3px;
 }
 
 /* HOVER CARDS GÉNÉRAUX */
@@ -462,7 +457,7 @@ main {
   border: none;
 }
 
-/* SECTION SOUTENIR */
+/* SECTION SOUTENIR (sans boutons don) */
 .support-card {
   max-width: 720px;
   margin: 0 auto;
@@ -476,40 +471,11 @@ main {
 
 .support-list {
   list-style: none;
-  margin: 12px 0 16px;
+  margin: 12px 0 0;
 }
 
 .support-list li {
   margin-bottom: 6px;
-}
-
-.support-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.support-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 0.86rem;
-  text-decoration: none;
-  font-weight: 600;
-  border: 1px solid transparent;
-}
-
-.support-btn.paypal {
-  background: linear-gradient(120deg, #ffc439, #ff9b00);
-  color: #120b02;
-}
-
-.support-btn.kofi {
-  background: linear-gradient(120deg, #29abe0, #00f0ff);
-  color: #020b12;
 }
 
 /* CONTACT */
@@ -596,4 +562,3 @@ main {
     padding: 24px 16px 50px;
   }
 }
-
