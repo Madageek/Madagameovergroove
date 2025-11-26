@@ -1,101 +1,25 @@
 // ==============================
-// CONFIGURATION
+// LISTE DES VIDÉOS À AFFICHER
 // ==============================
 
-// ID de ta playlist YouTube
-const PLAYLIST_ID = "PLTyMOPElORjYiQVwjMeU51xS4PKb455VM";
-
-// Ta clé API YouTube (pense à bien la restreindre aux referrers HTTP de ton site)
-const API_KEY = "AIzaSyD-qNMO9FIvEpjPdG6BV7uxrgzdA4YbA2s";
-
-// Nombre max d’éléments par page (50 = max autorisé par YouTube)
-const MAX_RESULTS = 50;
-
-// ==============================
-// RÉCUPÉRATION DES VIDÉOS
-// ==============================
-
-async function fetchPlaylistPage(pageToken = "") {
-  const url = new URL("https://www.googleapis.com/youtube/v3/playlistItems");
-  url.searchParams.set("part", "snippet,contentDetails");
-  url.searchParams.set("maxResults", MAX_RESULTS.toString());
-  url.searchParams.set("playlistId", PLAYLIST_ID);
-  url.searchParams.set("key", API_KEY);
-  if (pageToken) {
-    url.searchParams.set("pageToken", pageToken);
+const videos = [
+  {
+    id: "dQS9KpTlyw8",
+    title: "Le Trône Abyssal de Davy Jones",
+    info: "Cette chanson puise son inspiration dans la tragédie mythique de Davy Jones, figure tourmentée de Pirates des Caraïbes. Elle explore son cœur arraché, son amour perdu et la malédiction qui l’a condamné aux abysses. L’océan devient un personnage vivant, reflet de sa rage, de sa solitude et de son pouvoir écrasant. L’atmosphère mêle tempêtes, cris des âmes damnées et créatures colossales comme le Kraken, sculptant une fresque sombre et épique. C’est l’histoire d’un capitaine déchu devenu légende, souverain impitoyable des mers et prisonnier éternel de sa peine."
+  },
+  {
+    id: "kBAHBDiek8c",
+    title: "Achète ma merde",
+    info: "Cette chanson est une charge punk contre l’industrie du jeu vidéo moderne, où la passion s’efface derrière le profit. Elle dénonce avec sarcasme et fureur la dépendance aux abonnements, DLC et microtransactions absurdes. C’est un cri du joueur trahi, étranglé par les pratiques commerciales déguisées en innovations. Chaque rime est une gifle contre la consommation aveugle et la perte de sens du jeu. Une révolte brute, viscérale, où le plaisir d’autrefois se transforme en marchandise toxique."
   }
-
-  console.log("Appel API YouTube:", url.toString());
-
-  const response = await fetch(url.toString());
-
-  if (!response.ok) {
-    // On journalise l’erreur pour la console
-    console.error("Réponse API non OK:", response.status, response.statusText);
-    // On essaye de lire le corps pour plus de détails
-    let details = "";
-    try {
-      const data = await response.json();
-      details = JSON.stringify(data);
-    } catch (e) {
-      // ignore
-    }
-    throw new Error("Erreur API YouTube : " + response.status + " " + response.statusText + " " + details);
-  }
-
-  return response.json();
-}
-
-async function fetchAllPlaylistVideos() {
-  const videos = [];
-  let pageToken = "";
-  let securityLoop = 0;
-
-  while (securityLoop < 20) { // sécurité au cas où
-    const data = await fetchPlaylistPage(pageToken);
-
-    if (Array.isArray(data.items)) {
-      data.items.forEach((item) => {
-        const snippet = item.snippet;
-        if (
-          !snippet ||
-          !snippet.resourceId ||
-          snippet.resourceId.kind !== "youtube#video"
-        ) {
-          return;
-        }
-
-        const videoId = snippet.resourceId.videoId;
-        const title = snippet.title;
-        const channelTitle =
-          snippet.videoOwnerChannelTitle ||
-          snippet.channelTitle ||
-          "Mada Game Over Groove";
-
-        videos.push({
-          id: videoId,
-          title: title,
-          info: channelTitle
-        });
-      });
-    }
-
-    if (data.nextPageToken) {
-      pageToken = data.nextPageToken;
-      securityLoop++;
-    } else {
-      break;
-    }
-  }
-
-  return videos;
-}
+];
 
 // ==============================
 // AFFICHAGE SUR LE SITE
 // ==============================
 
-function renderVideos(videos) {
+function renderVideos(videosList) {
   const grid = document.getElementById("video-grid");
   const status = document.getElementById("video-status");
 
@@ -104,14 +28,14 @@ function renderVideos(videos) {
   grid.innerHTML = "";
 
   if (status) {
-    if (videos.length === 0) {
-      status.textContent = "Aucune vidéo trouvée dans la playlist.";
+    if (!videosList || videosList.length === 0) {
+      status.textContent = "Aucune vidéo définie pour le moment.";
     } else {
-      status.textContent = `Vidéos de la playlist (${videos.length}) :`;
+      status.textContent = `Vidéos affichées (${videosList.length}) :`;
     }
   }
 
-  videos.forEach((video) => {
+  videosList.forEach((video) => {
     const card = document.createElement("article");
     card.className = "video-card";
 
@@ -159,23 +83,7 @@ function setYear() {
 // LANCEMENT AU CHARGEMENT
 // ==============================
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   setYear();
-
-  const status = document.getElementById("video-status");
-  if (status) {
-    status.textContent = "Chargement des vidéos de la playlist...";
-  }
-
-  try {
-    const videos = await fetchAllPlaylistVideos();
-    console.log("Vidéos récupérées:", videos);
-    renderVideos(videos);
-  } catch (error) {
-    console.error("Erreur globale:", error);
-    if (status) {
-      status.textContent =
-        "Erreur lors du chargement des vidéos : " + error.message;
-    }
-  }
+  renderVideos(videos);
 });
