@@ -7,7 +7,7 @@
 
 /* Logo du header */
 .logo-image {
-  height: 60px;      /* taille du logo (tu peux monter à 70 si tu veux un peu plus gros) */
+  height: 60px;    
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -101,4 +101,5 @@
     top: 90px;
   }
 }
+
 
