@@ -89,21 +89,22 @@ body::after {
   }
 }
 
-/* ======== HEADER (PC PAR DÉFAUT) ======== */
+/* ======== HEADER (DESKTOP PAR DÉFAUT) ======== */
 .site-header {
   padding: 10px 6vw;
   background: linear-gradient(to right, rgba(5, 8, 24, 0.95), rgba(5, 8, 24, 0.8));
   border-bottom: 1px solid rgba(245, 211, 0, 0.15);
   backdrop-filter: blur(10px);
-  display: flex;                     /* FLEX sur PC */
-  justify-content: space-between;
+  display: grid; /* comme avant : grille 3 colonnes */
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 18px;
+  column-gap: 18px;
   position: sticky;
   top: 0;
   z-index: 50;
 }
 
+/* bloc gauche : logo */
 .header-left {
   display: flex;
   align-items: center;
@@ -121,9 +122,8 @@ body::after {
 .header-center {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* bien centré */
   text-align: center;
-  flex: 1;
 }
 
 .logo-main {
@@ -163,11 +163,11 @@ body::after {
 
 /* TOGGLE MENU (MOBILE) */
 .nav-toggle {
-  display: none;
+  display: none; /* caché sur PC, mais existe pour le mobile */
 }
 
 .nav-toggle-label {
-  display: none; /* caché sur PC */
+  display: none; /* on le montrera uniquement en mobile */
 }
 
 /* ======== LAYOUT GLOBAL ======== */
@@ -461,6 +461,8 @@ main {
 }
 
 /* ======== RESPONSIVE ======== */
+
+/* Desktop large */
 @media (min-width: 1024px) {
   .layout-with-sidebar {
     display: grid;
@@ -475,25 +477,26 @@ main {
   }
 }
 
-/* TABLETTES / TÉLÉPHONES */
+/* Tablette / mobile */
 @media (max-width: 900px) {
   .site-header {
-    flex-wrap: wrap;                /* header se met sur plusieurs lignes */
-    align-items: flex-start;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    row-gap: 6px;
+    align-items: center;
   }
 
   .header-center {
     align-items: flex-start;
     text-align: left;
-    flex: 0 0 auto;
   }
 
-  /* bouton burger visible */
+  /* bouton burger visible en mobile */
   .nav-toggle-label {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
+    justify-self: end;
     width: 38px;
     height: 32px;
     border-radius: 999px;
@@ -525,15 +528,15 @@ main {
 
   /* nav en panneau déroulant */
   .nav {
-    width: 100%;
+    grid-column: 1 / -1;
     margin-top: 4px;
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px 0 10px;
+    padding: 8px 6vw 10px;
     background: rgba(5, 8, 24, 0.97);
     border-radius: 12px;
     border: 1px solid rgba(0, 240, 255, 0.2);
-    display: none; /* caché par défaut sur mobile */
+    display: none; /* caché par défaut */
   }
 
   .nav a {
@@ -572,7 +575,7 @@ main {
   }
 }
 
-/* PETITS TÉLÉPHONES */
+/* Petits téléphones */
 @media (max-width: 600px) {
   main {
     padding: 24px 16px 40px;
