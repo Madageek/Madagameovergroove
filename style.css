@@ -308,7 +308,7 @@ main {
   border: none;
 }
 
-/* ABOUT */
+/* ABOUT (ancien bloc grid) */
 .grid-2 {
   display: grid;
   grid-template-columns: 1.4fr 1.2fr;
@@ -561,4 +561,33 @@ main {
   main {
     padding: 24px 16px 50px;
   }
+}
+
+/* ===== SECTION À PROPOS ===== */
+
+.about-section {
+  margin: 70px auto 0;
+  max-width: 900px;
+  padding: 24px 28px;
+  background: rgba(5, 7, 28, 0.96);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.about-section h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 1.8rem;
+  text-shadow:
+    0 0 4px rgba(0, 240, 255, 0.7),
+    0 0 10px rgba(255, 47, 212, 0.5);
+}
+
+.about-section p {
+  color: var(--text);
+  margin-bottom: 16px;
+  font-size: 1rem;
+  line-height: 1.75;
 }
